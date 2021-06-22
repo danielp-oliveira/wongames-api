@@ -19,7 +19,7 @@
   },
   "rules": {
     "indent": [
-      "error",
+      "off",
       2,
       {
         "SwitchCase": 1

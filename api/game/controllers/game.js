@@ -1,4 +1,4 @@
-"use strict";
+'use strict'
 
 /**
  * Read the documentation (https://strapi.io/documentation/developer-docs/latest/development/backend-customization.html#core-controllers)
@@ -7,10 +7,10 @@
 
 module.exports = {
   populate: async (ctx) => {
-    console.log("Starting populate...");
+    console.log('Starting populate...')
 
-    await strapi.services.game.populate();
+    await strapi.services.game.populate()
 
-    ctx.send("Finishing populate!");
-  },
-};
+    ctx.send('Finishing populate!')
+  }
+}
