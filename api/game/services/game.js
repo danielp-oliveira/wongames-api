@@ -32,6 +32,22 @@ async function getGameInfo(slug) {
   }
 }
 
+async function getByName(name, entityName) {
+  const item = await strapi.services[entityName].find({ name })
+  return item.length ? item[0] : null
+}
+
+async function create(name, entityName) {
+  const item = await getByName(name, entityName)
+
+  if (!item) {
+    return await strapi.services[entityName].create({
+      name,
+      slug: slugify(name, { lower: true })
+    })
+  }
+}
+
 module.exports = {
   populate: async () => {
     const gogApiUrl =
@@ -41,15 +57,8 @@ module.exports = {
       data: { products }
     } = await axios.get(gogApiUrl)
 
-    await strapi.services.publisher.create({
-      name: products[0].publisher,
-      slug: slugify(products[0].publisher).toLowerCase()
-    })
-
-    await strapi.services.developer.create({
-      name: products[0].developer,
-      slug: slugify(products[0].developer).toLowerCase()
-    })
+    await create(products[1].publisher, 'publisher')
+    await create(products[1].developer, 'developer')
 
     // console.log(await getGameInfo(products[1].slug))
   }
